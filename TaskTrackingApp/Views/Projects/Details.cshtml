@@ -1,0 +1,33 @@
+﻿@model TaskTrackingApp.Models.Project
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+
+<h2 class="my-4">Project Details</h2>
+
+<table class="table table-light">
+
+    <tr>
+        <th>Project ID</th>
+        <td>@Model.ProjectID</td>
+    </tr>
+
+    <tr>
+        <th>Project Name</th>
+        <td>@Model.ProjectName</td>
+    </tr>
+    <tr>
+        <th>Date Start </th>
+        <td>@Model.DateOfStart</td>
+    </tr>
+    <tr>
+        <th>Availability Status </th>
+        <td>@Model.AvailabilityStatus</td>
+    </tr>
+
+</table>
+
+<a href="/projects/index">Go back</a>
+
+

@@ -1,0 +1,353 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TaskTrackingAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FinalComments">
+          <Key>
+            <PropertyRef Name="FinalCommentID" />
+          </Key>
+          <Property Name="FinalCommentID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Screen" Type="varchar" MaxLength="50" />
+          <Property Name="TaskDescription" Type="varchar" MaxLength="5000" />
+          <Property Name="AdminUserID" Type="bigint" />
+          <Property Name="UserID" Type="bigint" />
+          <Property Name="DateOfFinalComment" Type="datetime" Nullable="false" />
+          <Property Name="ProjectID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Projects">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateOfStart" Type="datetime" />
+          <Property Name="CategoryID" Type="bigint" Nullable="false" />
+          <Property Name="AvailabilityStatus" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tasks">
+          <Key>
+            <PropertyRef Name="TaskID" />
+          </Key>
+          <Property Name="TaskID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Screen" Type="varchar" MaxLength="50" />
+          <Property Name="TaskDescription" Type="varchar" MaxLength="5000" />
+          <Property Name="AdminUserID" Type="bigint" />
+          <Property Name="UserID" Type="bigint" />
+          <Property Name="DateOfTask" Type="datetime" Nullable="false" />
+          <Property Name="ProjectID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TasksDone">
+          <Key>
+            <PropertyRef Name="TaskDoneID" />
+          </Key>
+          <Property Name="TaskDoneID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Screen" Type="varchar" MaxLength="50" />
+          <Property Name="TaskDescription" Type="varchar" MaxLength="5000" />
+          <Property Name="UserID" Type="bigint" />
+          <Property Name="DateOfTaskDone" Type="datetime" Nullable="false" />
+          <Property Name="ProjectID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__FinalComm__Proje__4222D4EF">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="1" />
+          <End Role="FinalComments" Type="Self.FinalComments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="FinalComments">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Projects__Catego__398D8EEE">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="1" />
+          <End Role="Projects" Type="Self.Projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tasks__ProjectID__3C69FB99">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="1" />
+          <End Role="Tasks" Type="Self.Tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="Tasks">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TasksDone__Proje__3F466844">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="1" />
+          <End Role="TasksDone" Type="Self.TasksDone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="TasksDone">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TaskTrackingAppModelStoreContainer">
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FinalComments" EntityType="Self.FinalComments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Projects" EntityType="Self.Projects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tasks" EntityType="Self.Tasks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TasksDone" EntityType="Self.TasksDone" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__FinalComm__Proje__4222D4EF" Association="Self.FK__FinalComm__Proje__4222D4EF">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="FinalComments" EntitySet="FinalComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Projects__Catego__398D8EEE" Association="Self.FK__Projects__Catego__398D8EEE">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tasks__ProjectID__3C69FB99" Association="Self.FK__Tasks__ProjectID__3C69FB99">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TasksDone__Proje__3F466844" Association="Self.FK__TasksDone__Proje__3F466844">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="TasksDone" EntitySet="TasksDone" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TaskTrackingAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Projects" Relationship="Self.FK__Projects__Catego__398D8EEE" FromRole="Categories" ToRole="Projects" />
+        </EntityType>
+        <EntityType Name="FinalComment">
+          <Key>
+            <PropertyRef Name="FinalCommentID" />
+          </Key>
+          <Property Name="FinalCommentID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Screen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TaskDescription" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <Property Name="AdminUserID" Type="Int64" />
+          <Property Name="UserID" Type="Int64" />
+          <Property Name="DateOfFinalComment" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ProjectID" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Project" Relationship="Self.FK__FinalComm__Proje__4222D4EF" FromRole="FinalComments" ToRole="Projects" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateOfStart" Type="DateTime" Precision="3" />
+          <Property Name="CategoryID" Type="Int64" Nullable="false" />
+          <Property Name="AvailabilityStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="Self.FK__Projects__Catego__398D8EEE" FromRole="Projects" ToRole="Categories" />
+          <NavigationProperty Name="FinalComments" Relationship="Self.FK__FinalComm__Proje__4222D4EF" FromRole="Projects" ToRole="FinalComments" />
+          <NavigationProperty Name="Tasks" Relationship="Self.FK__Tasks__ProjectID__3C69FB99" FromRole="Projects" ToRole="Tasks" />
+          <NavigationProperty Name="TasksDones" Relationship="Self.FK__TasksDone__Proje__3F466844" FromRole="Projects" ToRole="TasksDone" />
+        </EntityType>
+        <EntityType Name="Task">
+          <Key>
+            <PropertyRef Name="TaskID" />
+          </Key>
+          <Property Name="TaskID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Screen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TaskDescription" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <Property Name="AdminUserID" Type="Int64" />
+          <Property Name="UserID" Type="Int64" />
+          <Property Name="DateOfTask" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ProjectID" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Project" Relationship="Self.FK__Tasks__ProjectID__3C69FB99" FromRole="Tasks" ToRole="Projects" />
+        </EntityType>
+        <EntityType Name="TasksDone">
+          <Key>
+            <PropertyRef Name="TaskDoneID" />
+          </Key>
+          <Property Name="TaskDoneID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Screen" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TaskDescription" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="Int64" />
+          <Property Name="DateOfTaskDone" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ProjectID" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Project" Relationship="Self.FK__TasksDone__Proje__3F466844" FromRole="TasksDone" ToRole="Projects" />
+        </EntityType>
+        <Association Name="FK__Projects__Catego__398D8EEE">
+          <End Role="Categories" Type="Self.Category" Multiplicity="1" />
+          <End Role="Projects" Type="Self.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__FinalComm__Proje__4222D4EF">
+          <End Role="Projects" Type="Self.Project" Multiplicity="1" />
+          <End Role="FinalComments" Type="Self.FinalComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="FinalComments">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tasks__ProjectID__3C69FB99">
+          <End Role="Projects" Type="Self.Project" Multiplicity="1" />
+          <End Role="Tasks" Type="Self.Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="Tasks">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TasksDone__Proje__3F466844">
+          <End Role="Projects" Type="Self.Project" Multiplicity="1" />
+          <End Role="TasksDone" Type="Self.TasksDone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="TasksDone">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TaskTrackingAppEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="FinalComments" EntityType="Self.FinalComment" />
+          <EntitySet Name="Projects" EntityType="Self.Project" />
+          <EntitySet Name="Tasks" EntityType="Self.Task" />
+          <EntitySet Name="TasksDones" EntityType="Self.TasksDone" />
+          <AssociationSet Name="FK__Projects__Catego__398D8EEE" Association="Self.FK__Projects__Catego__398D8EEE">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK__FinalComm__Proje__4222D4EF" Association="Self.FK__FinalComm__Proje__4222D4EF">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="FinalComments" EntitySet="FinalComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tasks__ProjectID__3C69FB99" Association="Self.FK__Tasks__ProjectID__3C69FB99">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="Tasks" EntitySet="Tasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TasksDone__Proje__3F466844" Association="Self.FK__TasksDone__Proje__3F466844">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="TasksDone" EntitySet="TasksDones" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TaskTrackingAppModelStoreContainer" CdmEntityContainer="TaskTrackingAppEntities">
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="TaskTrackingAppModel.Category">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FinalComments">
+            <EntityTypeMapping TypeName="TaskTrackingAppModel.FinalComment">
+              <MappingFragment StoreEntitySet="FinalComments">
+                <ScalarProperty Name="FinalCommentID" ColumnName="FinalCommentID" />
+                <ScalarProperty Name="Screen" ColumnName="Screen" />
+                <ScalarProperty Name="TaskDescription" ColumnName="TaskDescription" />
+                <ScalarProperty Name="AdminUserID" ColumnName="AdminUserID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="DateOfFinalComment" ColumnName="DateOfFinalComment" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="TaskTrackingAppModel.Project">
+              <MappingFragment StoreEntitySet="Projects">
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="DateOfStart" ColumnName="DateOfStart" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="AvailabilityStatus" ColumnName="AvailabilityStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tasks">
+            <EntityTypeMapping TypeName="TaskTrackingAppModel.Task">
+              <MappingFragment StoreEntitySet="Tasks">
+                <ScalarProperty Name="TaskID" ColumnName="TaskID" />
+                <ScalarProperty Name="Screen" ColumnName="Screen" />
+                <ScalarProperty Name="TaskDescription" ColumnName="TaskDescription" />
+                <ScalarProperty Name="AdminUserID" ColumnName="AdminUserID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="DateOfTask" ColumnName="DateOfTask" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TasksDones">
+            <EntityTypeMapping TypeName="TaskTrackingAppModel.TasksDone">
+              <MappingFragment StoreEntitySet="TasksDone">
+                <ScalarProperty Name="TaskDoneID" ColumnName="TaskDoneID" />
+                <ScalarProperty Name="Screen" ColumnName="Screen" />
+                <ScalarProperty Name="TaskDescription" ColumnName="TaskDescription" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="DateOfTaskDone" ColumnName="DateOfTaskDone" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+
+<h2 class="my-4">Create Category</h2>
+
+<form action="/categories/create" method="post">
+
+    <div class="form-group col-md-6 mb-3">
+        <label for="CategoryName" class="mb-2">Category Name</label>
+        <input type="text" class="form-control" id="CategoryName" placeholder="Category Name" name="CategoryName">
+    </div>
+    <button type="submit" class="btn btn-info">Create</button>
+    <a href="/categories/index" class="img-thumbnail btn btn-danger">Cancel</a>
+</form>
+

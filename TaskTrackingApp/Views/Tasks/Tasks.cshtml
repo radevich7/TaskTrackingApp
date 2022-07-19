@@ -1,0 +1,36 @@
+﻿@model List<TaskTrackingApp.Models.Task>
+@{
+    ViewBag.Title = "Tasks";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+
+<h2 class="my-4">Tasks</h2>
+
+<table class="table table-light">
+    <thead>
+        <tr>
+            <th>Task ID</th>
+            <th>Taks</th>
+            <th>Taks</th>
+            <th>Taks</th>
+            <th>Taks</th>
+            <th>Taks</th>
+            <th>Taks</th>
+            <th>Taks</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.TaskID</td>
+            <td>@item.TaskDescription</td>
+            <td>@item.DateOfTask</td>
+            <td>@item.UserID</td>
+            <td>@item.AdminUserID</td>
+            <td>@item.Screen</td>
+        </tr>
+        }
+    </tbody>
+</table>

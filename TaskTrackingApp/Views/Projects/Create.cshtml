@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+
+<h2 class="my-4">Create Project</h2>
+
+<form action="/projects/create" method="post">
+
+    <div class="form-group col-md-6 mb-3">
+        <label for="ProjectName" class="mb-2">Project Name</label>
+        <input type="text" class="form-control" id="ProjectName" placeholder="Project Name" name="ProjectName">
+    </div>
+
+    <div class="form-group col-md-6 mb-3">
+        <label for="DateOfStart" class="mb-2">date of Start</label>
+        <input type="date" class="form-control" id="DateOfStart" placeholder="Date of Start" name="DateOfStart">
+    </div>
+    <div class="form-group col-md-6 mb-3">
+        <label for="CategoryID" class="mb-2">Category ID</label>
+        <input type="number" class="form-control" id="CategoryID" placeholder="Category ID" name="CategoryID">
+    </div>
+    <div class="form-group col-md-6 mb-3">
+        <label for="AvailabilityStatus" class="mb-2">Availability Status</label>
+        <input type="text" class="form-control" id="AvailabilityStatus" placeholder="Availability Status" name="AvailabilityStatus">
+    </div>
+    <button type="submit" class="btn btn-info">Create</button>
+    <a href="/projects/index" class="img-thumbnail btn btn-danger">Cancel</a>
+</form>

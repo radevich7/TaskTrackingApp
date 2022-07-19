@@ -1,0 +1,38 @@
+﻿@model List<TaskTrackingApp.Models.Project>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+
+<h2 class="my-4">Projects</h2>
+
+<a href="/projects/create" class="btn btn-info text-white">Create Project</a>
+
+<table class="table table-light">
+    <thead>
+        <tr>
+            <th>Project ID</th>
+            <th>Project Name</th>
+            <th>Date of Start</th>
+            <th>Availability Status</th>
+            <th>Category ID</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ProjectID</td>
+                <td>@item.ProjectName</td>
+                <td>@item.DateOfStart</td>
+                <td>@item.AvailabilityStatus</td>
+                <td>@item.CategoryID</td>
+                <td>
+                    <a href="/projects/details/@item.ProjectID" class="btn btn-info text-white">View</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

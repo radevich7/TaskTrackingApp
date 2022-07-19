@@ -10,19 +10,25 @@
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    <ul class="nav flex-column">
+    <ul class="nav bg-info
+">
         <li class="nav-item">
-            <a class="nav-link active" href="#">Active</a>
+            <a class="nav-link text-white" href="/home/index">Home</a>
+
+        </li>
+        <li>
+            <a class="nav-link text-white" href="/categories/index">Categories</a>
+
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link text-white" href="/projects/index">Projects</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
+            <a class="nav-link text-white" href="/tasks/index">Taks</a>
         </li>
     </ul>
+    <div class="container-fluid">
+        @RenderBody()
+    </div>
 </body>
 </html>
