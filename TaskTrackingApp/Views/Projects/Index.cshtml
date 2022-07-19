@@ -23,16 +23,31 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
-                <td>@item.ProjectID</td>
-                <td>@item.ProjectName</td>
-                <td>@item.DateOfStart</td>
-                <td>@item.AvailabilityStatus</td>
-                <td>@item.CategoryID</td>
-                <td>
-                    <a href="/projects/details/@item.ProjectID" class="btn btn-info text-white">View</a>
-                </td>
-            </tr>
+        <tr>
+            <td>@item.ProjectID</td>
+            <td>@item.ProjectName</td>
+            <td>
+                @if (item.DateOfStart.HasValue)
+                {
+                    @item.DateOfStart.Value.ToString("d/M/yyyy");
+                }
+            </td>
+            <td>@item.AvailabilityStatus</td>
+
+            <td>
+                @if (item.Category != null)
+                {
+
+                    @item.Category.CategoryName;
+                }
+            </td>
+            <td>
+                <a href="/projects/details/@item.ProjectID" class="btn btn-info text-white">View</a>
+                <a href="/projects/edit/@item.ProjectID" class="btn btn-info text-white">Edit</a>
+                <a href="/projects/delete/@item.ProjectID" class="btn btn-info text-white">Delete</a>
+
+            </td>
+        </tr>
         }
     </tbody>
 </table>

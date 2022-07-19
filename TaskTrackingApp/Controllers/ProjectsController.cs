@@ -31,6 +31,8 @@ namespace TaskTrackingApp.Controllers
 
         public ActionResult Create()
         {
+            TaskTrackingAppEntities db = new TaskTrackingAppEntities();
+            ViewBag.Categories = db.Categories.ToList();
             return View();
 
         }
@@ -46,6 +48,43 @@ namespace TaskTrackingApp.Controllers
 
         }
 
+        public ActionResult Edit(long id)
+        {
+            TaskTrackingAppEntities db = new TaskTrackingAppEntities();
+            ViewBag.Categories = db.Categories.ToList();
+            Project existingProject = db.Projects.Where(temp => temp.ProjectID == id).FirstOrDefault();
+            return View(existingProject);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Project p)
+        {
+            TaskTrackingAppEntities db = new TaskTrackingAppEntities();
+            Project existingProject = db.Projects.Where(temp => temp.ProjectID == p.ProjectID).FirstOrDefault();
+            existingProject.ProjectName = p.ProjectName;
+            existingProject.DateOfStart = p.DateOfStart;
+            existingProject.AvailabilityStatus = p.AvailabilityStatus;
+            existingProject.CategoryID = p.CategoryID;
+            db.SaveChanges();
+
+            return RedirectToAction("Index", "Projects");
+        }
+        public ActionResult Delete(long id)
+        {
+            TaskTrackingAppEntities db = new TaskTrackingAppEntities();
+            Project existingProject = db.Projects.Where(temp => temp.ProjectID == id).FirstOrDefault();
+            return View(existingProject);
+        }
+
+        [HttpPost]
+        public ActionResult Delete(long id, Project p)
+        {
+            TaskTrackingAppEntities db = new TaskTrackingAppEntities();
+            Project existingProject = db.Projects.Where(temp => temp.ProjectID == id).FirstOrDefault();
+            db.Projects.Remove(existingProject);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
 
     }
 }

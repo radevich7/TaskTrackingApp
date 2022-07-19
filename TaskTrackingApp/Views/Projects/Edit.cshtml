@@ -1,0 +1,49 @@
+﻿@model TaskTrackingApp.Models.Project
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutPageAdmin.cshtml";
+}
+
+<h2 class="my-4">Edit Project</h2>
+
+<form action="/projects/edit/@Model.ProjectID" method="post">
+
+    <div class="form-group col-md-6 mb-3">
+        <label for="ProjectName" class="mb-2">Project Name</label>
+        <input type="hidden" name="ProjectID" value="@Model.ProjectID" />
+        <input type="text" class="form-control" id="ProjectName" placeholder="Project Name" name="ProjectName" value="@Model.ProjectName">
+    </div>
+
+    <div class="form-group col-md-6 mb-3">
+        <label for="DateOfStart" class="mb-2">date of Start</label>
+        <input type="date" class="form-control" id="DateOfStart" placeholder="Date of Start" name="DateOfStart" value="@Model.DateOfStart.Value.ToString("yyyy-MM-dd")">
+    </div>
+    <div class="form-group col-md-6 mb-3">
+        <label for="CategoryID" class="mb-2">Category ID</label>
+        <select type="number" class="form-control" id="CategoryID" placeholder="Category ID" name="CategoryID">
+            <option value="">Select Category</option>
+            @foreach (var item in ViewBag.Categories)
+            {
+
+                if (item.CategoryID == Model.CategoryID)
+                {
+
+                    <option value="@item.CategoryID" selected="selected">@item.CategoryName</option>
+                }
+                else
+                {
+                    <option value="@item.CategoryID">@item.CategoryName</option>
+
+                }
+            }
+
+        </select>
+    </div>
+    <div class="form-group col-md-6 mb-3">
+        <label for="AvailabilityStatus" class="mb-2">Availability Status</label>
+        <input type="text" class="form-control" id="AvailabilityStatus" placeholder="Availability Status" name="AvailabilityStatus" value="@Model.AvailabilityStatus">
+    </div>
+    <button type="submit" class="btn btn-info">Save</button>
+    <a href="/projects/index" class="img-thumbnail btn btn-danger">Cancel</a>
+</form>
+
