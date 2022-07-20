@@ -6,7 +6,7 @@
 
 <h2 class="my-4">Create Project</h2>
 
-<form action="/projects/create" method="post">
+<form action="/projects/create" method="post" enctype="multipart/form-data">
 
     <div class="form-group col-md-6 mb-3">
         <label for="ProjectName" class="mb-2">Project Name</label>
@@ -36,6 +36,12 @@
             <option value="NotAvailable">Not Available</option>
         </select>
     </div>
-    <button type="submit" class="btn btn-info">Create</button>
-    <a href="/projects/index" class="img-thumbnail btn btn-danger">Cancel</a>
+    <div class="form-group col-md-6 mb-3">
+        <label for="Image">Image</label>
+        <input type="file"  name="Photo" id="Image"  class="form-control-file"/>
+    </div>
+
+
+        <button type="submit" class="btn btn-info">Create</button>
+        <a href="/projects/index" class="img-thumbnail btn btn-danger">Cancel</a>
 </form>

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TaskTrackingAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TaskTrackingAppModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Categories">
           <Key>
             <PropertyRef Name="CategoryID" />
@@ -33,6 +33,7 @@
           <Property Name="DateOfStart" Type="datetime" />
           <Property Name="CategoryID" Type="bigint" Nullable="false" />
           <Property Name="AvailabilityStatus" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Photo" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Tasks">
           <Key>
@@ -128,8 +129,7 @@
             <End Role="TasksDone" EntitySet="TasksDone" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TaskTrackingAppModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -167,6 +167,7 @@
           <NavigationProperty Name="FinalComments" Relationship="Self.FK__FinalComm__Proje__4222D4EF" FromRole="Projects" ToRole="FinalComments" />
           <NavigationProperty Name="Tasks" Relationship="Self.FK__Tasks__ProjectID__3C69FB99" FromRole="Projects" ToRole="Tasks" />
           <NavigationProperty Name="TasksDones" Relationship="Self.FK__TasksDone__Proje__3F466844" FromRole="Projects" ToRole="TasksDone" />
+          <Property Name="Photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Task">
           <Key>
@@ -294,6 +295,7 @@
           <EntitySetMapping Name="Projects">
             <EntityTypeMapping TypeName="TaskTrackingAppModel.Project">
               <MappingFragment StoreEntitySet="Projects">
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
                 <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
                 <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
                 <ScalarProperty Name="DateOfStart" ColumnName="DateOfStart" />

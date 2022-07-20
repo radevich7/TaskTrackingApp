@@ -12,8 +12,62 @@
 <table class="table table-light">
     <thead>
         <tr>
-            <th>Project ID</th>
-            <th>Project Name</th>
+            <th>
+                @if (ViewBag.IconClass == "fa-sort-desc")
+                {
+
+
+                    <a href="/projects/index?SortColumn=ProjectID&IconClass=fa-sort-asc">
+                        Project ID
+                    </a>
+                    if (ViewBag.SortColumn == "ProjectID")
+                    {
+                        <i class="fa @ViewBag.IconClass"></i>
+                    }
+                }
+                else
+                {
+                    <a href="/projects/index?SortColumn=ProjectID&IconClass=fa-sort-desc">
+                        Project ID
+                    </a>
+                    if (ViewBag.SortColumn == "ProjectID")
+                    {
+                        <i class="fa @ViewBag.IconClass"></i>
+                    }
+
+
+                }
+            </th>
+            <th>
+
+                @if (ViewBag.IconClass == "fa-sort-desc")
+                {
+
+                    <a href="/projects/index?SortColumn=ProjectName&IconClass=fa-sort-asc">
+                        Project Name
+
+                    </a>
+                    if (ViewBag.SortColumn == "ProjectName")
+                    {
+                        <i class="fa @ViewBag.IconClass"></i>
+                    }
+                }
+                else
+                {
+                    <a href="/projects/index?SortColumn=ProjectName&IconClass=fa-sort-desc">
+                        Project Name
+                    </a>
+                    if (ViewBag.SortColumn == "ProjectName")
+                    {
+                        <i class="fa @ViewBag.IconClass"></i>
+                    }
+                }
+
+
+
+
+
+            </th>
             <th>Date of Start</th>
             <th>Availability Status</th>
             <th>Category ID</th>
@@ -23,31 +77,79 @@
     <tbody>
         @foreach (var item in Model)
         {
+            <tr>
+                <td>@item.ProjectID</td>
+                <td>@item.ProjectName</td>
+                <td>
+                    @if (item.DateOfStart.HasValue)
+                    {
+                        @item.DateOfStart.Value.ToString("d/M/yyyy");
+                    }
+                </td>
+                <td>@item.AvailabilityStatus</td>
+
+                <td>
+                    @if (item.Category != null)
+                    {
+
+                        @item.Category.CategoryName;
+                    }
+                </td>
+                <td><img src="data:image;base64,@item.Photo" width="100px" alt="Alternate Text" /></td>
+                <td>
+                    <a href="/projects/details/@item.ProjectID" class="btn btn-info text-white">View</a>
+                    <a href="/projects/edit/@item.ProjectID" class="btn btn-info text-white">Edit</a>
+                    <a href="/projects/delete/@item.ProjectID" class="btn btn-info text-white">Delete</a>
+
+                </td>
+            </tr>
+        }
+
         <tr>
-            <td>@item.ProjectID</td>
-            <td>@item.ProjectName</td>
-            <td>
-                @if (item.DateOfStart.HasValue)
-                {
-                    @item.DateOfStart.Value.ToString("d/M/yyyy");
+            <td colspan="9">
+                @{
+                    int PrevPageNo = ViewBag.PageNo - 1;
+                    if (ViewBag.PageNo <= 0)
+                    { PrevPageNo = 1; }
+                    int NextPageNo = ViewBag.PageNo + 1;
+                    if (ViewBag.PageNo > ViewBag.NoOfPages)
+                    { PrevPageNo = ViewBag.NoOfPages; }
+
                 }
-            </td>
-            <td>@item.AvailabilityStatus</td>
 
-            <td>
-                @if (item.Category != null)
-                {
+                <ul class="pagination justify-content-center">
+                    <li class="page-item ">
+                        <a href="/projects/index?SortColumn=@ViewBag.SortColumn&IconClass=@ViewBag.IconClass&PageNo=@PrevPageNo" class="page-link">
+                            Prev
+                        </a>
+                    </li>
+                    @for (int i = 0; i < ViewBag.NoOfPages; i++)
+                    {
+                        if ((i + 1) == ViewBag.PageNo)
+                        {
 
-                    @item.Category.CategoryName;
-                }
-            </td>
-            <td>
-                <a href="/projects/details/@item.ProjectID" class="btn btn-info text-white">View</a>
-                <a href="/projects/edit/@item.ProjectID" class="btn btn-info text-white">Edit</a>
-                <a href="/projects/delete/@item.ProjectID" class="btn btn-info text-white">Delete</a>
-
+                            <li class="page-item active">
+                                <a href="/projects/index?SortColumn=@ViewBag.SortColumn&IconClass=@ViewBag.IconClass&PageNo=@(i+1)" class="page-link">
+                                    @(i+1)
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="page-item">
+                                <a href="/projects/index?SortColumn=@ViewBag.SortColumn&IconClass=@ViewBag.IconClass&PageNo=@(i+1)" class="page-link">
+                                    @(i+1)
+                                </a>
+                            </li>
+                        }
+                    }
+                    <li class="page-item ">
+                        <a href="/projects/index?SortColumn=@ViewBag.SortColumn&IconClass=@ViewBag.IconClass&PageNo=@NextPageNo" class="page-link">
+                            Next
+                        </a>
+                    </li>
+                </ul>
             </td>
         </tr>
-        }
     </tbody>
 </table>

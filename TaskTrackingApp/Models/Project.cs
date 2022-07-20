@@ -27,6 +27,7 @@ namespace TaskTrackingApp.Models
         public Nullable<System.DateTime> DateOfStart { get; set; }
         public long CategoryID { get; set; }
         public string AvailabilityStatus { get; set; }
+        public string Photo { get; set; }
     
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
